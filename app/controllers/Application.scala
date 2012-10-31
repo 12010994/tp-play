@@ -29,11 +29,12 @@ object Application extends Controller with Authentication {
    * Check if data from the form submission can authenticate the user
    * TODO Modify this function to call your service
    */
-    def checkAuthentication: Boolean = true
+    def checkAuthentication(name: String, pwd: String): Boolean = true
 
     val username = "User" // TODO get the username from the form data
+    val password = "password" // TODO get the password from the form data
 
-    if (checkAuthentication) {
+    if (checkAuthentication(username, password)) {
       signingIn(username)(Ok)
     } else {
       BadRequest
@@ -61,13 +62,13 @@ object Application extends Controller with Authentication {
    */
   val askPvwatts = Authenticated { username => request =>
     val userAddress = "???" // TODO retrieve the user address using your OPower service
-    val pvwatts = WS.url("http://developer.nrel.gov/api/georeserv/app/sam/pvwatts.json")
+    val pvwattsP = WS.url("http://developer.nrel.gov/api/georeserv/app/sam/pvwatts.json")
       .withQueryString(
         "api_key" -> ???,
         "address" -> userAddress,
         "system_size" -> "42",
-        "time_frame" -> "monthly"
-      )
+        "timeframe" -> "monthly"
+      ).get()
     NotImplemented
   }
 }
