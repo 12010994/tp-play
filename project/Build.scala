@@ -12,7 +12,7 @@ object ApplicationBuild extends Build {
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
-      resolvers += "Local M2" at "file://" + Path.userHome + "/.m2/repository"
+      resolvers += "Local M2" at Path.userHome.asURL + ".m2/repository"
     )
 
 }
