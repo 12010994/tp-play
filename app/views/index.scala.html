@@ -9,7 +9,7 @@
         (function () {
             var feedEl = document.getElementById('twitter-feed');
             var tweetCount = 5;
-            var es = new EventSource('@routes.Application.twitterFeed()');
+            var es = new EventSource('???');
             es.onmessage = function (message) {
                 if (message.data) {
                     var tweets = feedEl.childNodes;

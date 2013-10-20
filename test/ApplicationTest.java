@@ -19,14 +19,14 @@ public class ApplicationTest {
                 // Try to go to the index page
                 browser.goTo("http://localhost:3333/");
                 // User is redirected to the login page
-                assertThat(browser.url()).isEqualTo("http://localhost:3333/login");
+                assertThat(browser.url()).isEqualTo("http://localhost:3333/???");
 
                 // Fill the signing in form
-                browser.fill("[name=name]").with("julien");
-                browser.fill("[name=password]").with("aaaa");
+                browser.fill("[name=name]").with("???");
+                browser.fill("[name=password]").with("???");
                 browser.submit("form");
                 // User is logged in and redirected to the index page
-                assertThat(browser.url()).isEqualTo("http://localhost:3333/");
+                // TODO
 
                 // Logout
                 // TODO
@@ -41,15 +41,15 @@ public class ApplicationTest {
             public void invoke(TestBrowser browser) {
                 browser.goTo("http://localhost:3333/");
                 // Submit an empty form
-                browser.submit("form");
+                // TODO
                 // Validation error
-                assertThat(browser.pageSource()).contains("This field is required");
+                assertThat(browser.pageSource()).contains("???");
 
                 // Submit an invalid form
-                browser.fill("[name=name]").with("foo");
-                browser.fill("[name=password]").with("aaaa");
+                browser.fill("[name=name]").with("???");
+                browser.fill("[name=password]").with("???");
                 browser.submit("form");
-                assertThat(browser.pageSource()).contains("Invalid user name or password");
+                assertThat(browser.pageSource()).contains("???");
             }
         });
     }
