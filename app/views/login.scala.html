@@ -1,14 +1,13 @@
-@(form: Form[(String, String)])
+@(form: Form[forms.Login])
 
 @import views.form.HorizontalForm._
-@import util.Commons._
 
 @skel {
 
-    @helper.form(action = ???, 'class -> "form-horizontal") {
+    @helper.form(action = routes.Application.login()) {
 
         @if(form.hasGlobalErrors) {
-            <div class="control-group error">
+            <div class="form-group has-error">
                 <div class="controls">
                     @for(error <- form.globalErrors) {
                         <div class="help-block">@error.message</div>
@@ -17,13 +16,11 @@
             </div>
         }
 
-        @helper.inputText(form("name"), 'placeholder -> "Clint Eastwood", '_label -> "Login")
+        @helper.inputText(form("name"), 'placeholder -> "Clint Eastwood", '_label -> "Login", 'class -> "form-control")
 
-        @helper.inputPassword(form("pwd"), 'placeholder -> "********", '_label -> "Password")
+        @helper.inputPassword(form("password"), 'placeholder -> "********", '_label -> "Password", 'class -> "form-control")
 
-        <div class="controls">
-            <button type="submit" class="btn">Sign in</button>
-        </div>
+        <button type="submit" class="btn">Sign in</button>
     }
 
 }

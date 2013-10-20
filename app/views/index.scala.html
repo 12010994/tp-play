@@ -2,4 +2,34 @@
 
 @layout {
     <h1>Hello @username</h1>
+
+    <ul id="twitter-feed"></ul>
+
+    <script type="text/javascript">
+        (function () {
+            var feedEl = document.getElementById('twitter-feed');
+            var tweetCount = 5;
+            var es = new EventSource('@routes.Application.twitterFeed()');
+            es.onmessage = function (message) {
+                if (message.data) {
+                    var tweets = feedEl.childNodes;
+                    var tweet = JSON.parse(message.data);
+                    var el = document.createElement('li');
+                    var link = document.createElement('a');
+                    link.href = 'http://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str;
+                    link.textContent = '@@' + tweet.user.screen_name;
+                    el.appendChild(link);
+                    el.appendChild(document.createTextNode(': ' + tweet.text));
+                    if (tweets.length == 0) {
+                        feedEl.appendChild(el);
+                    } else {
+                        if (tweets.length == tweetCount) {
+                            feedEl.removeChild(tweets.item(tweetCount - 1));
+                        }
+                        feedEl.insertBefore(el, tweets.item(0));
+                    }
+                }
+            };
+        })();
+    </script>
 }

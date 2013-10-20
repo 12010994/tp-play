@@ -1,10 +1,8 @@
 @(field: views.html.helper.FieldElements)
 
-<div class="control-group @if(field.hasErrors) {error}">
+<div class="form-group @if(field.hasErrors) {has-error}">
     <label class="control-label" for="@field.id">@field.label</label>
-    <div class="controls">
-        @field.input
-        <span class="help-inline">@field.errors(field.lang).mkString(", ")</span>
-        <span class="help-block">@field.infos(field.lang).mkString(", ")</span>
-    </div>
+    @field.input
+    <span class="help-block">@field.errors(field.lang).mkString(", ")</span>
+    <span class="help-block">@field.infos(field.lang).mkString(", ")</span>
 </div>
