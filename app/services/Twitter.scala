@@ -23,9 +23,9 @@ class Twitter(key: ConsumerKey, token: RequestToken) {
    * @param eventSource Flux vers lequel les tweets seront transmis
    */
   def publicStream(track: String, eventSource: EventSource): Unit = {
-    import java.net.URLEncoder.encode
     WS
-      .url(s"${Twitter.BaseUrl}/statuses/filter.json?track=${encode(track, Codec.utf_8.charset)}")
+      .url(s"${Twitter.BaseUrl}/statuses/filter.json")
+      .withQueryString("track" -> track)
       .sign(OAuthCalculator(key, token))
       .postAndRetrieveStream(Map.empty[String, Seq[String]]) { headers =>
         Iteratee.foreach[Array[Byte]] { bytes =>
