@@ -3,7 +3,16 @@
 # ~~~~
 
 # Home page
-GET         /                    controllers.Application.index
+GET         /                                   controllers.Journeys.journeys()
+GET         /auth/login                         controllers.Authentication.login()
+POST        /auth/login                         controllers.Authentication.authenticate()
+GET         /auth/logout                        controllers.Authentication.logout()
+GET         /journey/:id                        controllers.Journeys.journey(id: Long)
+POST        /journey/:id/join                   controllers.Journeys.join(id: Long)
+POST        /journey/:id/attend                 controllers.Journeys.attend(id: Long)
+GET         /journey/:id/observe                controllers.Journeys.observe(id: Long)
+GET         /journey/:id/attendees              controllers.Journeys.attendees(id: Long)
 
+GET         /assets/javascript/routes.js        controllers.Journeys.javaScriptRouter()
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /assets/*file                       controllers.Assets.at(path="/public", file)

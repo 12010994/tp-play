@@ -3,9 +3,9 @@ name := "tp-play"
 version := "1.0-SNAPSHOT"
 
 libraryDependencies ++= Seq(
-  javaCore
+  javaWs,
+  "io.reactivex" % "rxjava" % "1.0.0-rc.9",
+  "org.zeromq" % "jeromq" % "0.3.4"
 )
 
-resolvers += "Local M2" at Path.userHome.asURL + ".m2/repository"
-
-play.Project.playJavaSettings
+enablePlugins(PlayJava)

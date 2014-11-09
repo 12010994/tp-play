@@ -1,10 +1,10 @@
-@(form: Form[forms.Login])
+@(form: Form[Authentication.Login])
 
 @import views.form.HorizontalForm._
 
 @skel {
 
-    @helper.form(action = ???) {
+    @helper.form(action = routes.Authentication.authenticate()) {
 
         @if(form.hasGlobalErrors) {
             <div class="form-group has-error">
@@ -20,7 +20,7 @@
 
         @helper.inputPassword(form("password"), 'placeholder -> "********", '_label -> "Password", 'class -> "form-control")
 
-        <button type="submit" class="btn">Sign in</button>
+        <button class="btn">Sign in</button>
     }
 
 }
