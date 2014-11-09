@@ -4,6 +4,7 @@ import play.data.Form;
 import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Result;
+import scala.NotImplementedError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,22 +31,14 @@ public class Authentication extends Controller {
      * Otherwise, the user must be authenticated (his user id should be stored into his session) and redirected to the index page.
      */
     public static Result authenticate() {
-        Form<Login> submission = form(Login.class).bindFromRequest();
-        if (submission.hasErrors()) {
-            return badRequest(views.html.login.render(submission));
-        } else {
-            Login login = submission.get();
-            session().put("username", login.name);
-            return redirect(routes.Journeys.journeys());
-        }
+        throw new NotImplementedError();
     }
 
     /**
      * Logs out an user (remove his id from his session) and show a good bye message
      */
     public static Result logout() {
-        session().remove("username");
-        return redirect(routes.Journeys.journeys());
+        throw new NotImplementedError();
     }
 
     /**
@@ -71,8 +64,7 @@ public class Authentication extends Controller {
         public String password;
 
         public List<ValidationError> validate() {
-            // TODO custom validation?
-            return "toto".equals(name) ? null : new ArrayList<ValidationError>() {{ add(new ValidationError("", "Invalid user name or password")); }};
+            return null;
         }
 
     }

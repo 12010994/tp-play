@@ -12,6 +12,7 @@ import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 import rx.Subscription;
+import scala.NotImplementedError;
 import services.JourneysService;
 import services.JourneysServiceStub;
 import services.models.Journey;
@@ -21,7 +22,7 @@ import java.util.function.Function;
 /**
  * Controller grouping actions related to the journeys service.
  */
-@Security.Authenticated(Authenticator.class)
+@Security.Authenticated
 public class Journeys extends Controller {
 
     /**
@@ -41,35 +42,21 @@ public class Journeys extends Controller {
      * Show the details of the journey with the given id
      */
     public static F.Promise<Result> journey(Long id) {
-        return withJourney(id, journey -> ok(views.html.journey.render(journey, Form.form(Join.class), Form.form(Attend.class))));
+        throw new NotImplementedError();
     }
 
     /**
      * Attend to the journey with the given id
      */
     public static F.Promise<Result> attend(Long journeyId) {
-        Form<Attend> submission = Form.form(Attend.class).bindFromRequest();
-        if (submission.hasErrors()) {
-            return withJourney(journeyId, journey -> badRequest(views.html.journey.render(journey, Form.form(Join.class), submission)));
-        } else {
-            Attend attend = submission.get();
-            return service.attend(journeyId, Authentication.username(), attend.availableSeats).
-                    map(result -> redirect(routes.Journeys.journey(journeyId)));
-        }
+        throw new NotImplementedError();
     }
 
     /**
      * Attend to a journey by joining a driver already attending
      */
     public static F.Promise<Result> join(Long journeyId) {
-        Form<Join> submission = Form.form(Join.class).bindFromRequest();
-        if (submission.hasErrors()) {
-            return withJourney(journeyId, journey -> badRequest(views.html.journey.render(journey, submission, Form.form(Attend.class))));
-        } else {
-            Join join = submission.get();
-            return service.join(journeyId, join.driverId, Authentication.username()).
-                    map(result -> redirect(routes.Journeys.journey(journeyId)));
-        }
+        throw new NotImplementedError();
     }
 
     /**
@@ -83,12 +70,7 @@ public class Journeys extends Controller {
      * Stream of participation notifications for the journey with the given id
      */
     public static Result attendees(Long journeyId) {
-        return ok(EventSource.whenConnected(es -> {
-            Subscription subscription = service.attendees(journeyId).subscribe(attendee -> {
-                es.send(EventSource.Event.event(mapper.valueToTree(attendee)));
-            });
-            es.onDisconnected(subscription::unsubscribe);
-        }));
+        throw new NotImplementedError();
     }
 
     /**
@@ -123,7 +105,5 @@ public class Journeys extends Controller {
                 orElseGet(Results::notFound);
         });
     }
-
-    static ObjectMapper mapper = new ObjectMapper();
 
 }
