@@ -5,27 +5,19 @@
     <h1>Attend to “@journey.name”</h1>
 
     @if(journey.attendees.nonEmpty) {
-        @helper.form(routes.Journeys.join(journey.id)) {
+        @helper.form(???) {
             <fieldset>
                 <legend>Join an attending driver</legend>
-                @helper.input(joinForm("driverId"), '_label -> "Driver"){ (_, name, value, _) =>
-                    @for(attendee <- journey.attendees) {
-                        @if(attendee.availableSeats > 0) {
-                            <label><input type="radio" name="@name" value="@attendee.id" @if(value == Some(attendee.id.toString)) { selected } /> @attendee.name (@attendee.availableSeats seat(s))</label><br />
-                        } else {
-                            <label><input type="radio" disabled> @attendee.name (no available seat)</label><br />
-                        }
-                    }
-                }
+                ???
                 <button>Join the selected driver</button>
             </fieldset>
         }
         <hr/>
     }
-    @helper.form(routes.Journeys.attend(journey.id)) {
+    @helper.form(???) {
         <fieldset>
             <legend>Attend as a driver</legend>
-            @helper.inputText(attendForm("availableSeats"), '_label -> "Available seats: ")
+            ???
             <button>Attend to this event as a driver</button>
         </fieldset>
     }

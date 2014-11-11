@@ -1,5 +1,8 @@
 package services.models;
 
+/**
+ * An Attendee is identified by `id`, he has a `name` and a number of available seats `availableSeats` (which is zero if this Attendee is not a driver)
+ */
 public class Attendee {
     public final Long id;
     public final String name;
