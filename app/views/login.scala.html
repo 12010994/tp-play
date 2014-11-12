@@ -4,7 +4,7 @@
 
 @skel {
 
-    @helper.form(action = ???) {
+    @helper.form(action = routes.Authentication.authenticate) {
 
         @if(form.hasGlobalErrors) {
             <div class="form-group has-error">

@@ -1,12 +1,13 @@
 package controllers;
 
 import play.data.Form;
+import play.data.validation.Constraints;
 import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Result;
 import scala.NotImplementedError;
 
-import java.util.ArrayList;
+import javax.security.auth.login.LoginException;
 import java.util.List;
 
 import static play.data.Form.form;
@@ -15,12 +16,15 @@ import static play.data.Form.form;
  * Controller grouping actions related to authentication
  */
 public class Authentication extends Controller {
+
+
     /**
      * Show the authentication form
      */
     public static Result login() {
         return ok(views.html.login.render(form(Login.class)));
     }
+
 
     /**
      * Handle the authentication form submission.
@@ -30,10 +34,15 @@ public class Authentication extends Controller {
      *
      * Otherwise, the user must be authenticated (his user id should be stored into his session) and redirected to the index page.
      */
-    public static Result authenticate() {
-        throw new NotImplementedError();
-        // TODO:
-        // - Read the data of the form submission
+    public static Result authenticate() throws LoginException {
+        Form<Login> submission = form(Login.class).bindFromRequest();
+        System.out.println(submission.get().name);
+        System.out.println(submission.get().password);
+        if (submission.get().name != null && submission.get().password == null) {
+            throw new LoginException();
+        }
+        return ok();
+
         // - If data is valid, check that the user name and password are correct
         // - If everything is alright associate the user’s name to the "username" key in his session and redirect him to the Journeys.journeys action
         // - In case of failure, reply with a 400 status code (Bad Request) and show the form with the validation errors
@@ -64,8 +73,10 @@ public class Authentication extends Controller {
      */
     public static class Login {
 
+        @Constraints.Required
         public String name;
 
+        @Constraints.Required
         public String password;
 
         // If needed, override this method to add a “global” validation rule (i.e not related to a particular field)
